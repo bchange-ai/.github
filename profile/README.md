@@ -6,7 +6,7 @@ Somos la **primera plataforma de Mindset Management®** y lo hacemos con un sist
 
 ---
 
-## 🧩 Qué hacemos (en una frase)
+## 🧩 Qué hacemos
 
 **Mindset Management®**: un programa y una plataforma que ayuda a equipos y organizaciones a **desbloquear resistencias**, aumentar el **compromiso** y acelerar la **capacidad de adaptación** de forma medible y escalable.
 

@@ -21,8 +21,7 @@ Esta organización de GitHub agrupa repositorios y recursos relacionados con nue
 - **Infraestructura y despliegues** (IaC, pipelines, observabilidad)  
 - **Demos, prototipos y experimentos** (cuando aplica)
 
-> ℹ️ Algunos repositorios son privados por motivos de seguridad, clientes o datos sensibles.  
-> Si necesitas acceso, consúltanos.
+> ℹ️ Algunos repositorios son privados por motivos de seguridad, clientes o datos sensibles. 
 
 ---
 

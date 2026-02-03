@@ -1,0 +1,71 @@
+name: notify-teams
+
+on:
+  workflow_call:
+    inputs:
+      status:
+        required: true
+        type: string
+      repository:
+        required: true
+        type: string
+      branch:
+        required: true
+        type: string
+      actor:
+        required: true
+        type: string
+      sha:
+        required: true
+        type: string
+      run_url:
+        required: true
+        type: string
+    secrets:
+      TEAMS_WORKFLOW_URL:
+        required: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Teams
+        env:
+          TEAMS_WORKFLOW_URL: ${{ secrets.TEAMS_WORKFLOW_URL }}
+        run: |
+          payload=$(cat << JSON
+          {
+            "type": "message",
+            "attachments": [
+              {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                  "\$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                  "type": "AdaptiveCard",
+                  "version": "1.4",
+                  "body": [
+                    { "type": "TextBlock", "size": "Large", "weight": "Bolder", "text": "CI ${{ inputs.status }}" },
+                    {
+                      "type": "FactSet",
+                      "facts": [
+                        { "title": "Repo",   "value": "${{ inputs.repository }}" },
+                        { "title": "Branch", "value": "${{ inputs.branch }}" },
+                        { "title": "Actor",  "value": "${{ inputs.actor }}" },
+                        { "title": "SHA",    "value": "${{ inputs.sha }}" }
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    { "type": "Action.OpenUrl", "title": "Open run", "url": "${{ inputs.run_url }}" }
+                  ]
+                }
+              }
+            ]
+          }
+          JSON
+          )
+
+          curl -sS -X POST \
+            -H "Content-Type: application/json" \
+            -d "$payload" \
+            "$TEAMS_WORKFLOW_URL"
